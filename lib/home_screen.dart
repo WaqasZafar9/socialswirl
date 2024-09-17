@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
   int _hoveredIndex = -1;
   bool _isExpanded = false; // To handle the 'Read More' functionality
-
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -151,17 +151,25 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: SocialSwirlsDrawer(),
-      body: SingleChildScrollView(
-        controller: _scrollController,
+      body: SafeArea(
         child: Column(
           children: [
-            _buildTopCard(context),
-            _buildWelcomeSection(context),
-            _buildServicesSection(context),
-            _buildELearningSection(context),
-            _buildExpertsSection(context),
-            _buildRemoteCareerSection(context),
-            _buildgettingstarted(context),
+            Expanded(
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Column(
+                  children: [
+                    _buildTopCard(context),
+                    _buildWelcomeSection(context),
+                    _buildServicesSection(context),
+                    _buildELearningSection(context),
+                    _buildExpertsSection(context),
+                    _buildRemoteCareerSection(context),
+                    _buildgettingstarted(context),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -2,6 +2,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:socialswirl/services_pages/buisness_websites.dart';
+import 'package:socialswirl/services_pages/consulting_service.dart';
+import 'package:socialswirl/services_pages/crm_solution.dart';
+import 'package:socialswirl/services_pages/designing.dart';
+import 'package:socialswirl/services_pages/digital_marketing.dart';
+import 'package:socialswirl/services_pages/e_commerce.dart';
+import 'package:socialswirl/services_pages/seo_optimization.dart';
+import 'package:socialswirl/services_pages/webdesign%20&%20development.dart';
+import 'package:socialswirl/widgets/bottom_navigation.dart';
 import 'ContactUs.dart';
 import 'home_screen.dart';
 import 'widgets/TopBarDrawer.dart';
@@ -49,8 +58,9 @@ class _ServicesPageState extends ConsumerState<ServicesPage> {
             actions: [
               IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(
-                      HomeScreen(), AnimationType.topToBottom));
+                  Navigator.of(context).push(
+                      AnimatedPageRoute.getAnimatedPageRoute(
+                          HomeScreen(), AnimationType.topToBottom));
                 },
                 icon: const CircleAvatar(
                   radius: 24,
@@ -72,12 +82,16 @@ class _ServicesPageState extends ConsumerState<ServicesPage> {
                 WhereWeSupportSection(),
                 OurCustomerSection(),
                 ProjectCardsWidget(),
+                SizedBox(
+                  height: 20,
+                ),
                 _buildGettingStarted(context),
               ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -86,24 +100,66 @@ class WhereWeSupportSection extends StatelessWidget {
   final List<SupportCard> supportCards = const [
     SupportCard(
       title: 'Website Design and Development',
-      description: 'Unlock your online potential with captivating websites tailored to your unique vision and business needs.',
+      description:
+      'Unlock your online potential with captivating websites tailored to your unique vision and business needs.',
       icon: Icons.web,
+      index: 0,
     ),
     SupportCard(
       title: 'Business Websites',
-      description: 'Power up your business with custom-designed websites engineered for success in the digital arena.',
+      description:
+      'Power up your business with custom-designed websites engineered for success in the digital arena.',
       icon: Icons.business,
+      index: 1,
     ),
     SupportCard(
       title: 'E-commerce Solutions',
-      description: 'Transform your online store with cutting-edge e-commerce solutions designed for maximum conversions.',
+      description:
+      'Transform your online store with cutting-edge e-commerce solutions designed for maximum conversions.',
       icon: Icons.shopping_cart,
+      index: 2,
+    ),
+    SupportCard(
+      title: 'CRM Solution',
+      description:
+      'Transform your customer relationships and drive business growth with our intuitive CRM solutions designed to streamline your sales and support process.',
+      icon: Icons.people_outline,
+      index: 3,
+    ),
+    SupportCard(
+      title: 'Designing',
+      description:
+      'Make a lasting impression with captivating designs that resonate with your audience and elevate your brand\'s identity.',
+      icon: Icons.design_services,
+      index: 4,
+    ),
+    SupportCard(
+      title: 'Consulting Service',
+      description:
+      'Gain invaluable insights and expert guidance to steer your business towards sustainable success in the digital age.',
+      icon: Icons.support_agent,
+      index: 5,
+    ),
+    SupportCard(
+      title: 'Digital Marketing',
+      description:
+      'Expand your digital footprint and connect with your target audience through strategic digital marketing campaigns.',
+      icon: Icons.campaign,
+      index: 6,
+    ),
+    SupportCard(
+      title: 'Seo Optimization',
+      description:
+      'Propel your website to the top of search engine results and amplify your online visibility with our expert SEO strategies.',
+      icon: Icons.trending_up,
+      index: 7,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final headingStyle = GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold);
+    final headingStyle =
+    GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold);
     return Column(
       children: [
         Padding(
@@ -120,12 +176,14 @@ class SupportCard extends StatelessWidget {
   final String title;
   final String description;
   final IconData icon;
+  final int index;
 
   const SupportCard({
     Key? key,
     required this.title,
     required this.description,
     required this.icon,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -146,7 +204,8 @@ class SupportCard extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               title,
-              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
+              style: GoogleFonts.poppins(
+                  fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -163,14 +222,15 @@ class SupportCard extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     child: const Text(
-                      'Get a Quote',
+                      'Get Quote',
                       style: TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF64ACF9),
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      minimumSize: const Size(100, 36),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      minimumSize: const Size(50, 36),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                   ),
@@ -178,12 +238,15 @@ class SupportCard extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _navigateToPage(context, index);
+                    },
                     child: const Text('Read More'),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: const Color(0xFF64ACF9),
                       backgroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       minimumSize: const Size(100, 36),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
@@ -196,7 +259,58 @@ class SupportCard extends StatelessWidget {
       ),
     );
   }
+
+  void _navigateToPage(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(const WebsiteDesign(), AnimationType.scale),
+        );
+        break;
+      case 1:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(BusinessWebsites(), AnimationType.scale),
+        );
+        break;
+      case 2:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(ECommerce(), AnimationType.scale),
+        );
+        break;
+      case 3:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(const CrmSolution(), AnimationType.scale),
+        );
+        break;
+      case 4:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(const Designing(), AnimationType.scale),
+        );
+        break;
+      case 5:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(const ConsultingService(), AnimationType.scale),
+        );
+        break;
+      case 6:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(const DigitalMarketing(), AnimationType.scale),
+        );
+        break;
+      case 7:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute(const SeoOptimization(), AnimationType.scale),
+        );
+        break;
+      default:
+        Navigator.of(context).push(
+          AnimatedPageRoute.getAnimatedPageRoute( HomeScreen(), AnimationType.scale),
+        );
+        break;
+    }
+  }
 }
+
 
 class OurCustomerSection extends StatefulWidget {
   @override
@@ -240,7 +354,8 @@ class _OurCustomerSectionState extends State<OurCustomerSection> {
 
   @override
   Widget build(BuildContext context) {
-    final headingStyle = GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold);
+    final headingStyle =
+        GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold);
     return Column(
       children: [
         Padding(
@@ -267,7 +382,8 @@ class _OurCustomerSectionState extends State<OurCustomerSection> {
 }
 
 Widget _buildGettingStarted(BuildContext context) {
-  final headingStyle = GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold);
+  final headingStyle =
+      GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold);
   final bodyStyle = GoogleFonts.poppins(fontSize: 16);
 
   return Padding(
@@ -287,9 +403,12 @@ Widget _buildGettingStarted(BuildContext context) {
             Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(
                 ContactFormPage(), AnimationType.rightToLeft));
           },
-          child: const Text('Contact Us', style: TextStyle(
-            color: Colors.white,
-          ),),
+          child: const Text(
+            'Contact Us',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF57A5F9),
           ),
@@ -299,13 +418,13 @@ Widget _buildGettingStarted(BuildContext context) {
   );
 }
 
-
 class ProjectCardsWidget extends StatefulWidget {
   const ProjectCardsWidget({Key? key}) : super(key: key);
 
   @override
   _ProjectCardsWidgetState createState() => _ProjectCardsWidgetState();
 }
+
 class _ProjectCardsWidgetState extends State<ProjectCardsWidget> {
   final PageController _pageController = PageController(viewportFraction: 0.8);
   int _currentPage = 0;
@@ -369,15 +488,23 @@ class _ProjectCardsWidgetState extends State<ProjectCardsWidget> {
           padding: const EdgeInsets.all(16),
           child: Text(
             'Our Projects',
-            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
+            style:
+                GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            'Here are some of the projects and brands we have proudly collaborated with, showcasing our expertise and dedication in delivering top-notch solutions.',
-            style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.normal),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 16.0, top: 5.0, right: 16.0, bottom: 16.0),
+            child: Text(
+              'Here are some of the projects and brands we have proudly collaborated with, showcasing our expertise and dedication in delivering top-notch solutions.',
+              style: GoogleFonts.poppins(
+                  fontSize: 10, fontWeight: FontWeight.normal),
+            ),
           ),
+        ),
+        SizedBox(
+          height: 16,
         ),
         SizedBox(
           height: 300,
@@ -426,7 +553,7 @@ class _ProjectCardsWidgetState extends State<ProjectCardsWidget> {
           ),
           Positioned(
             left: 16,
-            bottom: 20,
+            bottom: 50,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -449,10 +576,10 @@ class _ProjectCardsWidgetState extends State<ProjectCardsWidget> {
                   project['subtitle']!,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 9,
                     shadows: [
                       Shadow(
-                        blurRadius: 3,
+                        blurRadius: 9,
                         color: Colors.black.withOpacity(0.3),
                         offset: const Offset(1, 1),
                       ),
@@ -463,16 +590,19 @@ class _ProjectCardsWidgetState extends State<ProjectCardsWidget> {
             ),
           ),
           Positioned(
-            bottom: 11,
+            bottom: 2,
             right: 11,
             child: TextButton(
               onPressed: () {
                 // Add your "Read More" logic here
               },
-
-              child: const Text('Read More', style: TextStyle(
-                color: Colors.black,
-              ),),
+              child: const Text(
+                'Read More',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
             ),
           ),
         ],
