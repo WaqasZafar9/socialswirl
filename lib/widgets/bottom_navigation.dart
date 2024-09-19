@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:socialswirl/home_screen.dart';
-
+import '../E learning.dart';
 import '../Services.dart';
+import '../about us.dart';
 import 'custom_page_route.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -37,12 +38,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
             backgroundColor: Colors.blue, // Color when selected
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.computer_sharp),
+            icon: Icon(Icons.settings_remote_sharp),
             label: 'Remote Jobs',
             backgroundColor: Colors.blue, // Color when selected
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings_accessibility),
+            icon: Icon(Icons.miscellaneous_services_sharp),
             label: 'Services',
             backgroundColor: Colors.blue, // Color when selected
           ),
@@ -63,19 +64,44 @@ class _BottomNavBarState extends State<BottomNavBar> {
             _currentIndex = index;
           });
 
-          switch (index) {
-            case 0:
-              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(HomeScreen(), AnimationType.leftToRight));
-              break;
-            case 1:
-
-              break;
-            case 2:
-              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(ServicesPage(), AnimationType.bottomToTop));
-              break;
-            case 3:
-
-              break;
+          try {
+            switch (index) {
+              case 0:
+                Navigator.of(context).push(
+                  AnimatedPageRoute.getAnimatedPageRoute(HomeScreen(), AnimationType.leftToRight),
+                );
+                break;
+              case 1:
+              // Handle Remote Jobs page navigation if implemented
+                break;
+              case 2:
+                Navigator.of(context).push(
+                  AnimatedPageRoute.getAnimatedPageRoute(ServicesPage(), AnimationType.bottomToTop),
+                );
+                break;
+              case 3:
+                Navigator.of(context).push(
+                  AnimatedPageRoute.getAnimatedPageRoute(Elearning(), AnimationType.leftToRight),
+                );
+                break;
+              case 4:
+                Navigator.of(context).push(
+                  AnimatedPageRoute.getAnimatedPageRoute(AboutUsPage(), AnimationType.scale),
+                );
+                break;
+              default:
+                throw Exception('Invalid index $index');
+            }
+          } catch (e) {
+            // Show a SnackBar or Dialog with the error message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error occurred: $e'),
+                backgroundColor: Colors.red,
+              ),
+            );
+            // Optionally, log the error for debugging
+            print('Navigation error: $e');
           }
         },
       ),

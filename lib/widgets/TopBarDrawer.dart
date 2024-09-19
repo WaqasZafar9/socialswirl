@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:socialswirl/ContactUs.dart';
+import 'package:socialswirl/widgets/custom_page_route.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../home_screen.dart';
@@ -169,6 +171,10 @@ class SocialSwirlsDrawer extends ConsumerWidget {
               MaterialPageRoute(builder: (context) => HomeScreen()),
             );
             break;
+          case 'Remote Jobs':
+            break;
+          case 'Contact Us':
+            Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(ContactFormPage(), AnimationType.fade),);
         }
       },
     );

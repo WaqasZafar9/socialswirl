@@ -13,6 +13,7 @@ import 'package:socialswirl/widgets/TopBarDrawer.dart';
 import 'package:socialswirl/widgets/custom_page_route.dart';
 import 'dart:async';
 import 'ContactUs.dart';
+import 'E learning.dart';
 import 'Services.dart';
 import 'widgets/bottom_navigation.dart';
 import 'package:flutter/foundation.dart';
@@ -101,9 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
     // Timer to auto-scroll through services
     _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       if (currentPage < services.length - 1) {
-        currentPage++;
+        setState(() {
+          currentPage++;
+        });
       } else {
-        currentPage = 0;
+        setState(() {
+          currentPage = 0;
+        });
       }
       _pageController.animateToPage(
         currentPage,
@@ -173,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+       bottomNavigationBar: BottomNavBar(),
     );
   }
 
@@ -269,7 +274,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 8),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(Elearning(), AnimationType.fade));
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0XFF3164F4),
               elevation: 8, // Add elevation for shadow effect
@@ -454,7 +461,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // Enroll Now Button
           ElevatedButton(
             onPressed: () {
-              // Navigate to e-learning enrollment
+              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(Elearning(), AnimationType.fade));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0XFF3164F4),

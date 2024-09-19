@@ -44,7 +44,7 @@ dependencies:
   get: ^4.6.6
   smooth_page_indicator: ^1.2.0+3
   url_launcher: ^6.3.0
-  flashy_tab_bar2: ^0.0.10
+#  flashy_tab_bar2: ^0.0.10
 
 dev_dependencies:
   flutter_test:

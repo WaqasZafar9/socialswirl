@@ -72,8 +72,8 @@ class _ServicesPageState extends ConsumerState<ServicesPage> {
           SliverToBoxAdapter(
             child: Image.asset(
               'assets/Services/servicesbanner.png',
-              fit: BoxFit.cover,
-              height: 200,
+              fit: BoxFit.fitWidth,
+              height: 180,
             ),
           ),
           SliverToBoxAdapter(
@@ -91,7 +91,7 @@ class _ServicesPageState extends ConsumerState<ServicesPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavBar(),
+       bottomNavigationBar: BottomNavBar(),
     );
   }
 }
@@ -166,6 +166,7 @@ class WhereWeSupportSection extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Text('Where We Support', style: headingStyle),
         ),
+        SizedBox(height: 16,),
         ...supportCards.map((card) => card).toList(),
       ],
     );
