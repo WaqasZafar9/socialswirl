@@ -4,6 +4,8 @@ import 'package:socialswirl/ContactUs.dart';
 import 'package:socialswirl/widgets/custom_page_route.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Privacy Policy.dart';
+import '../Terms and condition.dart';
 import '../home_screen.dart';
 
 final selectedMenuItemProvider = StateProvider<String>((ref) => 'Home');
@@ -175,6 +177,10 @@ class SocialSwirlsDrawer extends ConsumerWidget {
             break;
           case 'Contact Us':
             Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(ContactFormPage(), AnimationType.fade),);
+          case 'Terms & Conditions':
+            Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(Termsandcondition(), AnimationType.fade),);
+          case 'Licensing':
+            Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(Privacypolicy(), AnimationType.fade),);
         }
       },
     );
