@@ -10,7 +10,7 @@ A Flutter application offering a platform for users to explore courses, apply fo
 
 ## Shields
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg)  
+![License]([https://img.shields.io/badge/License-MIT-blue.svg](https://img.shields.io/badge/License-Boost%20Software%20License%202.0-lightblue.svg)  
 ![Build](https://img.shields.io/badge/Build-Passing-brightgreen)  
 ![Flutter](https://img.shields.io/badge/Flutter-Framework-blue)
 
@@ -50,7 +50,7 @@ Height: 300px
 
 ### Step 1: Clone the repository
 ```bash
-git clone https://github.com/your-repository-link.git
+git clone (https://github.com/WaqasZafar9/socialswirl.git)
 cd your-project-folder
 ```
 
