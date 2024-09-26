@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:socialswirl/home_screen.dart';
 import '../E learning.dart';
+import '../Remote Jobs.dart';
 import '../Services.dart';
 import '../about us.dart';
 import 'custom_page_route.dart';
@@ -72,7 +73,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 );
                 break;
               case 1:
-              // Handle Remote Jobs page navigation if implemented
+                Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(RemoteJobs(),AnimationType.fade),);
                 break;
               case 2:
                 Navigator.of(context).push(

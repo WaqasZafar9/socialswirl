@@ -5,6 +5,7 @@ import 'package:socialswirl/widgets/custom_page_route.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Privacy Policy.dart';
+import '../Remote Jobs.dart';
 import '../Terms and condition.dart';
 import '../home_screen.dart';
 
@@ -174,6 +175,7 @@ class SocialSwirlsDrawer extends ConsumerWidget {
             );
             break;
           case 'Remote Jobs':
+            Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(RemoteJobs(),AnimationType.fade),);
             break;
           case 'Contact Us':
             Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(ContactFormPage(), AnimationType.fade),);

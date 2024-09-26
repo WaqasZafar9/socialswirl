@@ -14,6 +14,7 @@ import 'package:socialswirl/widgets/custom_page_route.dart';
 import 'dart:async';
 import 'ContactUs.dart';
 import 'E learning.dart';
+import 'Remote Jobs.dart';
 import 'Services.dart';
 import 'widgets/bottom_navigation.dart';
 import 'package:flutter/foundation.dart';
@@ -170,6 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     _buildELearningSection(context),
                     _buildExpertsSection(context),
                     _buildRemoteCareerSection(context),
+                    _buildTestimonialsSection(context),
                     _buildgettingstarted(context),
                   ],
                 ),
@@ -515,6 +517,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(12.0), // Added padding inside the card
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // CircleAvatar dynamically sized for responsiveness
                   CircleAvatar(
@@ -675,7 +678,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                // Handle Apply Now button press
+                Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(RemoteJobs(),AnimationType.fade),);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0XFF3164F4),
@@ -693,6 +696,131 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Widget _buildTestimonialsSection(BuildContext context) {
+    // List of testimonials (replace with actual data)
+    final List<Map<String, String>> testimonials = [
+      {
+        'logo': 'assets/creemsaying.jpeg',
+        'testimonial': 'Social Swirl\'s back-end team excels in Python and Django, delivering robust infrastructure with quality timeliness. A reliable choice!',
+        'company': 'Careem'
+      },
+      {
+        'logo': 'assets/company_logo2.jpeg',
+        'testimonial': 'Social Swirl\'s graphic design team exceeded expectations, bringing our brand to life with innovative designs. Thrilled with their work!',
+        'company': 'DK Group'
+      },
+      {
+        'logo': 'assets/company_logo3.jpeg',
+        'testimonial': 'Social Swirl\'s top-tier SEO services boosted our online presence with precise keywords and detailed analytics. Highly satisfied!',
+        'company': 'MAT Communications Services'
+      },
+      {
+        'logo': 'assets/company_logo4.jpeg',
+        'testimonial': 'Social Swirl\'s social media team\'s strategic content and efficient management led to a strong online presence, boosting brand awareness and conversions. Impressive efforts!',
+        'company': 'loja'
+      },
+      {
+        'logo': 'assets/company_logo5.jpeg',
+        'testimonial': 'Social Swirl\'s front-end team delivered exceptional results, transforming our design concepts into beautifully crafted, responsive websites. Great experience!',
+        'company': 'Elisha'
+      }
+    ];
+
+    // State management for current page index
+    ValueNotifier<int> currentIndex = ValueNotifier<int>(0);
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0), // Overall padding
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center, // Center content
+        children: [
+          // Title
+          Text(
+            'What Companies Say About Us',
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16), // Space between title and testimonials
+
+          // PageView for multiple testimonials
+          SizedBox(
+            height: 300, // Adjust height for the testimonial section
+            child: PageView.builder(
+              onPageChanged: (index) {
+                currentIndex.value = index; // Update current page index
+              },
+              itemCount: testimonials.length, // Number of testimonials
+              itemBuilder: (context, index) {
+                final testimonial = testimonials[index];
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+                  children: [
+                    // Company Logo
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage(testimonial['logo']!), // Replace with actual image
+                      backgroundColor: Colors.transparent,
+                    ),
+                    const SizedBox(height: 16), // Space between logo and text
+
+                    // Testimonial Text
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        testimonial['testimonial']!,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Colors.black54,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 16), // Space between text and company name
+                    // Company Name
+                    Text(
+                      testimonial['company']!,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 24), // Space before dot indicators
+
+          // Dot indicators
+          ValueListenableBuilder<int>(
+            valueListenable: currentIndex,
+            builder: (context, value, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(testimonials.length, (index) {
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                    height: value == index ? 12.0 : 8.0, // Active indicator is larger
+                    width: value == index ? 12.0 : 8.0,
+                    decoration: BoxDecoration(
+                      color: value == index ? Colors.blue : Colors.grey, // Change color for active dot
+                      shape: BoxShape.circle,
+                    ),
+                  );
+                }),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget _buildgettingstarted(BuildContext context) {
     return Container(
