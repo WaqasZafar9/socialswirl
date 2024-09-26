@@ -1,7 +1,7 @@
 
 # Project Title: 
 
-                 SocialSwirl
+  # SocialSwirl
 
 ## Description
 A Flutter application offering a platform for users to explore courses, apply for remote jobs, and access services provided by the company. The app provides a seamless user experience with a responsive and visually appealing design, leveraging modern state management and routing techniques.
