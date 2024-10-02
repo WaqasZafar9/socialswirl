@@ -6,6 +6,9 @@ import 'package:socialswirl/widgets/bottom_navigation.dart';
 import 'package:socialswirl/widgets/custom_page_route.dart';
 
 import 'ContactUs.dart';
+import 'E learning.dart';
+import 'Services.dart';
+import 'about us.dart';
 import 'home_screen.dart';
 
 class RemoteJobs extends StatefulWidget {
@@ -17,12 +20,19 @@ class RemoteJobs extends StatefulWidget {
 
 class _RemoteJobsState extends State<RemoteJobs> {
   final List<Expert> experts = [
-  Expert('assets/muaaz.png', 'Muaaz', 'Sales Executive'),
-  Expert('assets/abdullah.png', 'Abdullah', 'Digital Marketer'),
-  Expert('assets/awais.jpg', 'Awais', 'Senior SEO Developer'),
-  Expert('assets/farrukh.webp', 'Farrukh', 'MERN Stack Developer'),
-  Expert('assets/hammad.jpg', 'Hammad', 'Graphic Designer'),
-  Expert('assets/zaid.jpg', 'Zaid', 'Social Media Marketer'),
+    Expert('assets/muaaz.png', 'Muaaz', 'Sales Executive'),
+    Expert('assets/abdullah.png', 'Abdullah', 'Digital Marketer'),
+    Expert('assets/awais.jpg', 'Awais', 'Senior SEO Developer'),
+    Expert('assets/farrukh.webp', 'Farrukh', 'MERN Stack Developer'),
+    Expert('assets/hammad.jpg', 'Hammad', 'Graphic Designer'),
+    Expert('assets/zaid.jpg', 'Zaid', 'Social Media Marketer'),
+  ];
+
+  final List<Widget> _pages = [
+    RemoteJobs(), // Index 1
+    ServicesPage(), // Index 2
+    Elearning(), // Index 3
+    AboutUsPage(), // Index 4
   ];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -31,21 +41,21 @@ class _RemoteJobsState extends State<RemoteJobs> {
   int currentPage = 0;
   int _hoveredIndex = -1;
   bool _isExpanded = false;
+  int _currentIndex = 0;
 
   @override
   void initState() {
-  super.initState();
-  _scrollController = ScrollController();
-  _pageController = PageController(); // Initialize _pageController here
+    super.initState();
+    _scrollController = ScrollController();
+    _pageController = PageController(); // Initialize _pageController here
   }
 
   @override
   void dispose() {
-  _scrollController.dispose();
-  _pageController.dispose();
-  super.dispose();
+    _scrollController.dispose();
+    _pageController.dispose();
+    super.dispose();
   }
-
 
   void _onHoverEnter(int index) {
     setState(() {
@@ -62,58 +72,26 @@ class _RemoteJobsState extends State<RemoteJobs> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState?.openDrawer();
-          },
-          icon: const Icon(Icons.menu_open_outlined, size: 32),
-        ),
-        backgroundColor: const Color(0xFFE3F1FC),
-        title: Text(
-          'Social Swirl',
-          style: Theme.of(context).textTheme.displayLarge,
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(
-                  HomeScreen(), AnimationType.topToBottom));
-            },
-            icon: const CircleAvatar(
-              radius: 24,
-              backgroundImage: AssetImage('assets/logo.jpeg'),
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(
+                children: [
+                  _buildRemoteCareerSection(context),
+                  const CareerSectionWidget(),
+                  _buildEmployeeSection(context),
+                  _buildOurCertification(context),
+                  _buildRemoteInternshipSection(context),
+                  _buildgettingstarted(context),
+                ],
+              ),
             ),
           ),
         ],
       ),
-      drawer: SocialSwirlsDrawer(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: [
-                    _buildRemoteCareerSection(context),
-                    const CareerSectionWidget(),
-                    _buildEmployeeSection(context),
-                    _buildOurCertification(context),
-                    _buildRemoteInternshipSection(context),
-                    _buildgettingstarted(context),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 
@@ -301,63 +279,84 @@ class _RemoteJobsState extends State<RemoteJobs> {
     );
   }
 
-  Widget _buildExpertCard(String imagePath, String name, String post, int index) {
+  Widget _buildExpertCard(
+      String imagePath, String name, String post, int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Card(
-        color: Colors.white,
-        elevation: 6, // Fixed elevation (no hover effect)
-        child: Padding(
-          padding: const EdgeInsets.all(8.0), // Adjusted padding
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,// Minimize vertical space
-            children: [
-              // CircleAvatar dynamically sized for responsiveness
-              CircleAvatar(
-                radius: MediaQuery.of(context).size.width < 600 ? 100 : 150, // Reduced avatar size
-                backgroundImage: AssetImage(imagePath),
-              ),
-              const SizedBox(height: 16), // Reduced space between avatar and text
-              // Name text
-              Text(
-                name,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16), // Reduced space
-              // Post text
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0), // Reduced horizontal padding
-                child: Text(
-                  post,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-              ),
-              const SizedBox(height: 20), // Reduced space
-
-              // Dot indicators, centered
-              Row(
+      child: MouseRegion(
+        onEnter: (_) => _onHoverEnter(index),
+        onExit: (_) => _onHoverExit(index),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          transform: _hoveredIndex == index
+              ? Matrix4.translationValues(0, -10, 0)
+              : Matrix4.identity(),
+          child: Card(
+            color: Colors.white,
+            elevation: _hoveredIndex == index ? 12 : 6,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(experts.length, (index) {
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                    height: currentPage == index ? 8.0 : 6.0, // Slightly smaller dot size
-                    width: currentPage == index ? 8.0 : 6.0,
-                    decoration: BoxDecoration(
-                      color: currentPage == index ? Colors.blueAccent : Colors.grey,
-                      shape: BoxShape.circle,
+                children: [
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      double avatarRadius = constraints.maxWidth < 600
+                          ? 60
+                          : 100; // More responsive sizing
+                      return CircleAvatar(
+                        radius: avatarRadius,
+                        backgroundImage: AssetImage(imagePath),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    name,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 600 ? 16 : 20,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 5),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      post,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: MediaQuery.of(context).size.width < 600
+                                ? 14
+                                : 16,
+                          ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
-                  );
-                }),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(experts.length, (dotIndex) {
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                        height: currentPage == dotIndex ? 10.0 : 6.0,
+                        width: currentPage == dotIndex ? 10.0 : 6.0,
+                        decoration: BoxDecoration(
+                          color: currentPage == dotIndex
+                              ? Colors.blueAccent
+                              : Colors.grey,
+                          shape: BoxShape.circle,
+                        ),
+                      );
+                    }),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -368,15 +367,16 @@ class _RemoteJobsState extends State<RemoteJobs> {
     return Padding(
       padding: const EdgeInsets.all(16.0), // Overall padding around the content
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // Center content horizontally
+        crossAxisAlignment:
+            CrossAxisAlignment.center, // Center content horizontally
         children: [
           // Title
           Text(
             'Our Certification',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16), // Space between title and description
@@ -384,12 +384,12 @@ class _RemoteJobsState extends State<RemoteJobs> {
           // Description
           Text(
             'At Social Swirl, our internship program has been providing valuable industry experience since 2021. '
-                'Our certification is recognized for its comprehensive training and practical exposure to real-world projects. '
-                'Interns gain hands-on experience with cutting-edge technologies, making our certificate a testament to their skills and dedication. '
-                'This valuable credential significantly enhances career prospects and professional growth.',
+            'Our certification is recognized for its comprehensive training and practical exposure to real-world projects. '
+            'Interns gain hands-on experience with cutting-edge technologies, making our certificate a testament to their skills and dedication. '
+            'This valuable credential significantly enhances career prospects and professional growth.',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Colors.black54,
-            ),
+                  color: Colors.black54,
+                ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24), // Space between description and image
@@ -420,7 +420,6 @@ class _RemoteJobsState extends State<RemoteJobs> {
       ),
     );
   }
-
 
   Widget _buildRemoteInternshipSection(BuildContext context) {
     return Padding(
@@ -481,14 +480,12 @@ class _RemoteJobsState extends State<RemoteJobs> {
           // Apply Now Button
           Center(
             child: ElevatedButton(
-              onPressed: () {
-
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0XFF3164F4),
                 elevation: 8, // Add elevation for shadow effect
-                shadowColor:
-                Colors.black.withOpacity(0.5), // Set shadow color and opacity
+                shadowColor: Colors.black
+                    .withOpacity(0.5), // Set shadow color and opacity
               ),
               child: Text(
                 'Get Started',
@@ -535,7 +532,8 @@ class _RemoteJobsState extends State<RemoteJobs> {
           // Button
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(ContactFormPage(), AnimationType.scale));
+              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(
+                  ContactFormPage(), AnimationType.scale));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF4196f2), // Button color
@@ -543,10 +541,10 @@ class _RemoteJobsState extends State<RemoteJobs> {
                   horizontal: 24.0, vertical: 12.0), // Button padding
               elevation: 8, // Add elevation for shadow effect
               shadowColor:
-              Colors.black.withOpacity(0.5), // Set shadow color and opacity
+                  Colors.black.withOpacity(0.5), // Set shadow color and opacity
               shape: RoundedRectangleBorder(
                 borderRadius:
-                BorderRadius.circular(8), // Optional: Rounded corners
+                    BorderRadius.circular(8), // Optional: Rounded corners
               ),
             ),
             child: Text(

@@ -12,6 +12,9 @@ import 'package:socialswirl/services_pages/seo_optimization.dart';
 import 'package:socialswirl/services_pages/webdesign%20&%20development.dart';
 import 'package:socialswirl/widgets/bottom_navigation.dart';
 import 'ContactUs.dart';
+import 'E learning.dart';
+import 'Remote Jobs.dart';
+import 'about us.dart';
 import 'home_screen.dart';
 import 'widgets/TopBarDrawer.dart';
 import 'widgets/custom_page_route.dart';
@@ -33,65 +36,33 @@ class ServicesPage extends ConsumerStatefulWidget {
 
 class _ServicesPageState extends ConsumerState<ServicesPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: SocialSwirlsDrawer(),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            leading: IconButton(
-              onPressed: () {
-                _scaffoldKey.currentState?.openDrawer();
-              },
-              icon: const Icon(Icons.menu_open_outlined, size: 32),
-            ),
-            backgroundColor: const Color(0xFFE3F1FC),
-            title: Text(
-              'Social Swirl',
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                      AnimatedPageRoute.getAnimatedPageRoute(
-                          HomeScreen(), AnimationType.topToBottom));
-                },
-                icon: const CircleAvatar(
-                  radius: 24,
-                  backgroundImage: AssetImage('assets/logo.jpeg'),
-                ),
+    return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
+      slivers: [
+        SliverToBoxAdapter(
+          child: Image.asset(
+            'assets/Services/servicesbanner.png',
+            fit: BoxFit.fitWidth,
+            height: 180,
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Column(
+            children: [
+              WhereWeSupportSection(),
+              OurCustomerSection(),
+              ProjectCardsWidget(),
+              const SizedBox(
+                height: 20,
               ),
+              _buildGettingStarted(context),
             ],
           ),
-          SliverToBoxAdapter(
-            child: Image.asset(
-              'assets/Services/servicesbanner.png',
-              fit: BoxFit.fitWidth,
-              height: 180,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                WhereWeSupportSection(),
-                OurCustomerSection(),
-                ProjectCardsWidget(),
-                SizedBox(
-                  height: 20,
-                ),
-                _buildGettingStarted(context),
-              ],
-            ),
-          ),
-        ],
-      ),
-       bottomNavigationBar: BottomNavBar(),
+        ),
+      ],
     );
   }
 }

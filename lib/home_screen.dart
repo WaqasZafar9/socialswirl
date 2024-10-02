@@ -16,6 +16,7 @@ import 'ContactUs.dart';
 import 'E learning.dart';
 import 'Remote Jobs.dart';
 import 'Services.dart';
+import 'about us.dart';
 import 'widgets/bottom_navigation.dart';
 import 'package:flutter/foundation.dart';
 
@@ -86,6 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   ];
 
+  final List<Widget> _pages = [
+    RemoteJobs(),  // Index 1
+    ServicesPage(), // Index 2
+    Elearning(),    // Index 3
+    AboutUsPage(),  // Index 4
+  ];
+
+
   late ScrollController _scrollController;
   late PageController _pageController;
   Timer? _timer;
@@ -147,7 +156,9 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(AnimatedPageRoute.getAnimatedPageRoute(HomeScreen(), AnimationType.topToBottom));
+              setState(() {
+                _currentIndex = 0; // Set Home tab active when Home button is pressed
+              });
             },
             icon: const CircleAvatar(
               radius: 24,
@@ -157,7 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: SocialSwirlsDrawer(),
-      body: SafeArea(
+      body: _currentIndex == 0
+          ? SafeArea(
         child: Column(
           children: [
             Expanded(
@@ -179,10 +191,51 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      )
+          : _pages[_currentIndex - 1], // Display other pages for non-home tabs
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        backgroundColor: Colors.blue,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.black54,
+        currentIndex: _currentIndex, // Active tab
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index; // Update active index
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_remote_sharp),
+            label: 'Remote Jobs',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.miscellaneous_services_sharp),
+            label: 'Services',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school_sharp),
+            label: 'E - Learning',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: 'About Us',
+            backgroundColor: Colors.blue,
+          ),
+        ],
       ),
-       bottomNavigationBar: BottomNavBar(),
     );
   }
+
+
 
   Widget _buildTopCard(BuildContext context) {
     return Padding(
@@ -514,52 +567,57 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.white,
             elevation: _hoveredIndex == index ? 12 : 6,
             child: Padding(
-              padding: const EdgeInsets.all(12.0), // Added padding inside the card
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // CircleAvatar dynamically sized for responsiveness
-                  CircleAvatar(
-                    radius: MediaQuery.of(context).size.width < 600 ? 80 : 100, // Responsive avatar size
-                    backgroundImage: AssetImage(imagePath),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      double avatarRadius =
+                      constraints.maxWidth < 600 ? 60 : 100; // More responsive sizing
+                      return CircleAvatar(
+                        radius: avatarRadius,
+                        backgroundImage: AssetImage(imagePath),
+                      );
+                    },
                   ),
-                  const SizedBox(height: 10), // Small space between avatar and text
+                  const SizedBox(height: 10),
 
-                  // Name text
                   Text(
                     name,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 20,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 5), // Reduced space
+                  const SizedBox(height: 5),
 
-                  // Post text
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       post,
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: MediaQuery.of(context).size.width < 600 ? 14 : 16,
+                      ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
                   ),
-                  const SizedBox(height: 15), // Reduced space
+                  const SizedBox(height: 15),
 
-                  // Dot indicators, centered
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(experts.length, (index) {
+                    children: List.generate(experts.length, (dotIndex) {
                       return AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                        height: currentPage == index ? 10.0 : 6.0,
-                        width: currentPage == index ? 10.0 : 6.0,
+                        height: currentPage == dotIndex ? 10.0 : 6.0,
+                        width: currentPage == dotIndex ? 10.0 : 6.0,
                         decoration: BoxDecoration(
-                          color: currentPage == index
+                          color: currentPage == dotIndex
                               ? Colors.blueAccent
                               : Colors.grey,
                           shape: BoxShape.circle,
@@ -583,11 +641,14 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text(
             'Our Experts',
-            style: Theme.of(context).textTheme.displayLarge,
+            style: Theme.of(context).textTheme.displayLarge?.copyWith(
+              fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 32,
+            ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5, // Dynamically sized for responsiveness
+            height: MediaQuery.of(context).size.height * 0.5,
             child: PageView.builder(
               controller: _pageController,
               itemCount: experts.length,
@@ -597,9 +658,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               itemBuilder: (context, index) {
-                final expert = experts[index];
-                return _buildExpertCard(
-                    expert.imagePath, expert.name, expert.post, index);
+                try {
+                  final expert = experts[index];
+                  return _buildExpertCard(
+                      expert.imagePath, expert.name, expert.post, index);
+                } catch (e) {
+                  return Center(
+                    child: Text(
+                      'Error occurred: $e',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  );
+                }
               },
             ),
           ),
@@ -607,6 +677,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 
 
   Widget _buildRemoteCareerSection(BuildContext context) {
