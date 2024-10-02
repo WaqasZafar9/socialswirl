@@ -87,12 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   ];
 
-  final List<Widget> _pages = [
-    RemoteJobs(),  // Index 1
-    ServicesPage(), // Index 2
-    Elearning(),    // Index 3
-    AboutUsPage(),  // Index 4
-  ];
 
 
   late ScrollController _scrollController;
@@ -101,7 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 0;
   int _hoveredIndex = -1;
   bool _isExpanded = false; // To handle the 'Read More' functionality
-  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -135,107 +128,25 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState?.openDrawer();
-          },
-          icon: const Icon(Icons.menu_open_outlined, size: 32),
-        ),
-        backgroundColor: const Color(0xFFE3F1FC),
-        title: Text(
-          'Social Swirl',
-          style: Theme.of(context).textTheme.displayLarge,
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _currentIndex = 0; // Set Home tab active when Home button is pressed
-              });
-            },
-            icon: const CircleAvatar(
-              radius: 24,
-              backgroundImage: AssetImage('assets/logo.jpeg'),
-            ),
-          ),
-        ],
-      ),
-      drawer: SocialSwirlsDrawer(),
-      body: _currentIndex == 0
-          ? SafeArea(
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           children: [
-            Expanded(
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: [
-                    _buildTopCard(context),
-                    _buildWelcomeSection(context),
-                    _buildServicesSection(context),
-                    _buildELearningSection(context),
-                    _buildExpertsSection(context),
-                    _buildRemoteCareerSection(context),
-                    _buildTestimonialsSection(context),
-                    _buildgettingstarted(context),
-                  ],
-                ),
-              ),
-            ),
+            _buildTopCard(context),
+            _buildWelcomeSection(context),
+            _buildServicesSection(context),
+            _buildELearningSection(context),
+            _buildExpertsSection(context),
+            _buildRemoteCareerSection(context),
+            _buildTestimonialsSection(context),
+            _buildgettingstarted(context),
           ],
         ),
-      )
-          : _pages[_currentIndex - 1], // Display other pages for non-home tabs
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
-        backgroundColor: Colors.blue,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.black54,
-        currentIndex: _currentIndex, // Active tab
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index; // Update active index
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_remote_sharp),
-            label: 'Remote Jobs',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.miscellaneous_services_sharp),
-            label: 'Services',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school_sharp),
-            label: 'E - Learning',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: 'About Us',
-            backgroundColor: Colors.blue,
-          ),
-        ],
       ),
     );
   }
-
-
 
   Widget _buildTopCard(BuildContext context) {
     return Padding(

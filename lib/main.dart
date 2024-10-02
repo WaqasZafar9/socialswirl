@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:socialswirl/theme/theme.dart';
+import 'Layout.dart';
 import 'splash_screen.dart';
 import 'home_screen.dart';
 
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
       home: SplashScreen(),
       routes: {
         '/home': (context) => HomeScreen(),
+        '/layout': (context) => Layout(),
       },
     );
   }

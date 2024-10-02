@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
       // Simulate additional loading if necessary
       await Future.delayed(Duration(seconds: 2)); // Adjust as needed
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/layout');
     } catch (error) {
       _showErrorDialog(error);
     }
