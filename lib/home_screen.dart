@@ -769,7 +769,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildTestimonialsSection(BuildContext context) {
-    // List of testimonials (replace with actual data)
+    
     final List<Map<String, String>> testimonials = [
       {
         'logo': 'assets/creemsaying.jpeg',
@@ -819,7 +819,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // PageView for multiple testimonials
           SizedBox(
-            height: 300, // Adjust height for the testimonial section
+            height: MediaQuery.of(context).size.height * 0.4, // Adjust height based on screen size
             child: PageView.builder(
               onPageChanged: (index) {
                 currentIndex.value = index; // Update current page index
@@ -827,39 +827,41 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: testimonials.length, // Number of testimonials
               itemBuilder: (context, index) {
                 final testimonial = testimonials[index];
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
-                  children: [
-                    // Company Logo
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage(testimonial['logo']!), // Replace with actual image
-                      backgroundColor: Colors.transparent,
-                    ),
-                    const SizedBox(height: 16), // Space between logo and text
+                return SingleChildScrollView( // Added for better scrolling experience on smaller devices
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+                    children: [
+                      // Company Logo
+                      CircleAvatar(
+                        radius: MediaQuery.of(context).size.width * 0.1, // Responsive logo size
+                        backgroundImage: AssetImage(testimonial['logo']!), // Replace with actual image
+                        backgroundColor: Colors.transparent,
+                      ),
+                      const SizedBox(height: 16), // Space between logo and text
 
-                    // Testimonial Text
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        testimonial['testimonial']!,
+                      // Testimonial Text
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          testimonial['testimonial']!,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Colors.black54,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const SizedBox(height: 16), // Space between text and company name
+                      // Company Name
+                      Text(
+                        testimonial['company']!,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Colors.black54,
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                    ),
-                    const SizedBox(height: 16), // Space between text and company name
-                    // Company Name
-                    Text(
-                      testimonial['company']!,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Colors.blueAccent,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             ),
@@ -891,6 +893,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 
 
   Widget _buildgettingstarted(BuildContext context) {
