@@ -39,30 +39,32 @@ class _ServicesPageState extends ConsumerState<ServicesPage> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        SliverToBoxAdapter(
-          child: Image.asset(
-            'assets/Services/servicesbanner.png',
-            fit: BoxFit.fitWidth,
-            height: 180,
+    return Scaffold(
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(
+            child: Image.asset(
+              'assets/Services/servicesbanner.png',
+              fit: BoxFit.fitWidth,
+              height: 180,
+            ),
           ),
-        ),
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              WhereWeSupportSection(),
-              OurCustomerSection(),
-              ProjectCardsWidget(),
-              const SizedBox(
-                height: 20,
-              ),
-              _buildGettingStarted(context),
-            ],
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                WhereWeSupportSection(),
+                OurCustomerSection(),
+                ProjectCardsWidget(),
+                const SizedBox(
+                  height: 20,
+                ),
+                _buildGettingStarted(context),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

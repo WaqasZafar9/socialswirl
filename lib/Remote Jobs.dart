@@ -72,25 +72,27 @@ class _RemoteJobsState extends State<RemoteJobs> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                children: [
-                  _buildRemoteCareerSection(context),
-                  const CareerSectionWidget(),
-                  _buildEmployeeSection(context),
-                  _buildOurCertification(context),
-                  _buildRemoteInternshipSection(context),
-                  _buildgettingstarted(context),
-                ],
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Column(
+                  children: [
+                    _buildRemoteCareerSection(context),
+                    const CareerSectionWidget(),
+                    _buildEmployeeSection(context),
+                    _buildOurCertification(context),
+                    _buildRemoteInternshipSection(context),
+                    _buildgettingstarted(context),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -20,22 +20,24 @@ class _ElearningState extends State<Elearning> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Coming Soon',
-              style: GoogleFonts.poppins(
-                color: Colors.lightBlueAccent,
-                fontSize: 60,
-                fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Coming Soon',
+                style: GoogleFonts.poppins(
+                  color: Colors.lightBlueAccent,
+                  fontSize: 60,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
