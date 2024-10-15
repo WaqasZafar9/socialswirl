@@ -19,14 +19,15 @@ A Flutter application offering a platform for users to explore courses, apply fo
 
 ## Project Demo
 
-You can check the live demo of the project here: [Project Demo URL]
+You can check the live demo of the project here: 
+
 
 ---
 
 ## Project Screenshots
 
 ### Screenshot 1
-![Screenshot](Screenshot Image URL)
+![Screenshot 2024-10-15 231946](https://github.com/user-attachments/assets/16208f58-9c60-4068-82a3-1aa179241637)
 Width: 500px  
 Height: 300px  
 
