@@ -19,8 +19,9 @@ A Flutter application offering a platform for users to explore courses, apply fo
 
 ## Project Demo
 
-You can check the live demo of the project here: 
+You can check the live demo of the project here:
 
+https://github.com/user-attachments/assets/9004e5a2-713e-4be4-a66f-90b95836f0b0
 
 ---
 
