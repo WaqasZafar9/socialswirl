@@ -28,13 +28,14 @@ You can check the live demo of the project here:
 
 ### Screenshot 1
 ![Screenshot 2024-10-15 231946](https://github.com/user-attachments/assets/16208f58-9c60-4068-82a3-1aa179241637)
-Width: 500px  
-Height: 300px  
+
 
 ### Screenshot 2
-![Screenshot](Screenshot Image URL)
-Width: 500px  
-Height: 300px  
+![Screenshot 2024-10-15 232006](https://github.com/user-attachments/assets/e94f5035-4472-4bb4-a396-bbce7d517d9d)
+
+
+### Screenshot 2
+![Screenshot 2024-10-15 232020](https://github.com/user-attachments/assets/b7f294e1-f312-4a1c-a463-e792cb1b108b)
 
 ---
 
